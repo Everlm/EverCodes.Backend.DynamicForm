@@ -1,9 +1,0 @@
-
-namespace src.EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Dtos
-{
-    public class OptionDto
-    {
-        public string Value { get; set; } = string.Empty;
-        public string Label { get; set; } = string.Empty;
-    }
-}
