@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch EverCodes.Backend.DynamicForm.Web.API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/EverCodes.Backend.DynamicForm.Web.API/bin/Debug/net8.0/EverCodes.Backend.DynamicForm.Web.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/EverCodes.Backend.DynamicForm.Web.API",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  ]
+}
