@@ -8,7 +8,7 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
         {
             return new FormDefinitionDto
             {
-                FormName = "User Registration",
+                FormName = "User",
                 Fields = new List<FieldGroupDto>
                 {
                     new FieldGroupDto
@@ -78,9 +78,15 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                                     }
                                 }
                             }
-                        }
+
+                        },
+
+
+
                     }
-                }
+                },
+
+
             };
         }
 
