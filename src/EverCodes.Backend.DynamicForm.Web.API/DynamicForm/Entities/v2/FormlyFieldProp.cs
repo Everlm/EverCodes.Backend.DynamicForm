@@ -4,6 +4,7 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Entities.v2
     public class FormlyFieldProp
     {
         public Guid Id { get; set; }
+        public Guid FormlyFieldConfigId { get; set; }
         public string Type { get; set; } = string.Empty;
         public string Label { get; set; } = string.Empty;
         public string Placeholder { get; set; } = string.Empty;
@@ -21,9 +22,11 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Entities.v2
         public int Tabindex { get; set; }
         public bool Readonly { get; set; }
         public int Step { get; set; }
+        public string Appearance { get; set; } = string.Empty;
         public Dictionary<string, int>? Attributes { get; set; }
-        public ICollection<FormlyFieldOption>? Options { get; set; }
         public Dictionary<string, object>? AdditionalProperties { get; set; }
+        public virtual FormlyFieldConfig FormlyFieldConfig { get; set; } = null!;
+        public virtual ICollection<FormlyFieldOption> Options { get; set; } = new List<FormlyFieldOption>();
 
     }
 }

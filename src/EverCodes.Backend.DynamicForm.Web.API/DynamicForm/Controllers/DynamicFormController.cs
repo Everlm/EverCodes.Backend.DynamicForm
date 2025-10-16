@@ -1,18 +1,17 @@
-using EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Dtos;
+using EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Entities.v2;
 using EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/dynamic-forms")]
     public class DynamicFormController : ControllerBase
     {
-
-        [HttpGet("get-form-definition")]
-        public ActionResult<FormDefinitionDto> GetFormDefinition()
+        [HttpGet("sample")]
+        public ActionResult<FormlyForm> GetSampleForm()
         {
-            var form = DynamicFormData.GetFormDefinitionMockData();
+            var form = SeedFormData.BuildDynamicForm();
 
             if (form is null)
             {
