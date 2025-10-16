@@ -16,15 +16,15 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                     new FormlyFieldConfig
                     {
                         Id = Guid.NewGuid(),
-                        Key = "username",
+                        Key = "name",
                         Type = "input",
-                        DefaultValue = "Ever",
+                        // DefaultValue = "Ever",
                         Props = new FormlyFieldProp
                         {
                             Id = Guid.NewGuid(),
-                            Label = "Username",
+                            Label = "Name",
                             Type = "text",
-                            Placeholder = "Enter your username",
+                            Placeholder = "Enter your name",
                             Required = true,
                             Disabled = false,
                             Readonly = false,
@@ -36,15 +36,15 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                     new FormlyFieldConfig
                     {
                         Id = Guid.NewGuid(),
-                        Key = "email",
+                        Key = "phonenumber",
                         Type = "input",
-                        DefaultValue = "ever@example.com",
+                        // DefaultValue = "ever@example.com",
                         Props = new FormlyFieldProp
                         {
                             Id = Guid.NewGuid(),
-                            Type = "email",
-                            Label = "Email",
-                            Placeholder = "Enter your email",
+                            Type = "tel",
+                            Label = "Phone Number",
+                            Placeholder = "Enter your phone number",
                             Required = true,
                             Disabled = false,
                             Readonly = false,
@@ -62,7 +62,7 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                                 Id = Guid.NewGuid(),
                                 Key = "username",
                                 Type = "input",
-                                DefaultValue = "username",
+                                // DefaultValue = "username",
                                 ClassName = "col-6",
                                 Props = new FormlyFieldProp
                                 {
@@ -70,7 +70,7 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                                     Type = "text",
                                     Label = "Username",
                                     Placeholder = "Enter value for username",
-                                    Required = false,
+                                    Required = true,
                                     Disabled = false,
                                     Readonly = false,
                                     MinLength = 3,
@@ -83,19 +83,60 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                                 Id = Guid.NewGuid(),
                                 Key = "email",
                                 Type = "input",
-                                DefaultValue = "email@example.com",
+                                // DefaultValue = "email@example.com",
                                 ClassName = "col-6",
                                 Props = new FormlyFieldProp
                                 {
                                     Id = Guid.NewGuid(),
                                     Label = "Email",
                                     Type = "email",
+                                    Pattern = "^[a-zA-Z0-9._\\+%\\-]+@evercodes\\.com$",
                                     Placeholder = "Enter value for email",
-                                    Required = false,
+                                    Required = true,
                                     Disabled = false,
                                     Readonly = false,
                                     Appearance = "outline"
 
+                                },
+                                Validation = new FormlyValidation
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Messages = new Dictionary<string, string>
+                                    {
+                                        { "required", "Este campo es obligatorio()Backend" },
+                                        { "pattern", "El correo debe pertenecer al dominio evercodes.com()Backend" }
+                                    }
+                                }
+                            },
+                            new FormlyFieldConfig
+                            {
+                                Id = Guid.NewGuid(),
+                                Key = "password",
+                                Type = "input",
+                                // DefaultValue = "email@example.com",
+                                ClassName = "col-6",
+                                Props = new FormlyFieldProp
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Label = "Password",
+                                    Type = "password",
+                                    Placeholder = "Enter value for password",
+                                    Required = true,
+                                    Disabled = false,
+                                    Readonly = false,
+                                    MinLength = 6,
+                                    MaxLength = 20,
+                                    Appearance = "outline"
+                                },
+                                Validation = new FormlyValidation
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Messages = new Dictionary<string, string>
+                                    {
+                                        { "required", "Este campo es obligatorio()Backend" },
+                                        { "minlength", "Mínimo 6 caracteres()Backend" },
+                                        { "maxlength", "Máximo 20 caracteres()Backend" }
+                                    }
                                 }
                             },
                             new FormlyFieldConfig
@@ -108,7 +149,7 @@ namespace EverCodes.Backend.DynamicForm.Web.API.DynamicForm.MockData
                                 {
                                     Id = Guid.NewGuid(),
                                     Label = "Role",
-                                    Required = false,
+                                    Required = true,
                                     Disabled = false,
                                     Readonly = false,
                                     Appearance = "outline",
