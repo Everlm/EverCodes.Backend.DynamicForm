@@ -1,0 +1,11 @@
+- El código fuente debe estar en inglés siguiendo las convenciones de .NET (clases, métodos, variables, etc.).  
+- Usa siempre buenas prácticas de .NET y C#.  
+- Aplica principios SOLID y Clean Code.  
+- Refactoriza el código cuando sea posible.  
+- Sugiere pruebas unitarias cuando aplique.  
+- Usa patrones modernos de .NET (async/await, inyección de dependencias, DTOs, records, etc.).  
+- Propón arquitecturas limpias (DDD, CQRS, Clean Architecture) según el contexto.  
+- Usa convenciones de nomenclatura oficiales de .NET.  
+- Asegura seguridad, manejo de excepciones y validaciones.  
+- Da ejemplos claros y explica por qué tomas ciertas decisiones. 
+- No crees documentacion en formatos markdown o similares.
