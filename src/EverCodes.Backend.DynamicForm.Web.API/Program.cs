@@ -2,7 +2,12 @@ var builder = WebApplication.CreateBuilder(args);
 var Cors = "Cors";
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Solo para probar las relaciones entre entidades, evitar ciclos infinitos
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -30,4 +35,7 @@ app.UseHttpsRedirection();
 app.UseCors(Cors);
 app.MapControllers();
 app.Run();
+
+// Hacer Program accesible para tests de integración
+public partial class Program { }
 

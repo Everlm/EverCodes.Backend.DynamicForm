@@ -1,106 +1,126 @@
 # EverCodes.Backend.DynamicForm
 
-API Backend para generación y gestión de formularios dinámicos.
+API Backend para generación y gestión de formularios dinámicos utilizando la estructura de la libreria de Formly.
 
 ## 📋 Descripción
 
-Este proyecto es una API RESTful desarrollada en .NET 8 que proporciona servicios para la creación y gestión de formularios dinámicos. Permite definir formularios con diferentes tipos de campos (texto, email, select, checkbox, etc.) que pueden ser consumidos por aplicaciones frontend.
+API RESTful en .NET 8 que genera formularios dinámicos con validaciones, opciones y agrupaciones de campos. Soporta DTOs para evitar referencias circulares y está lista para integrarse con aplicaciones frontend.
 
 ## 🚀 Tecnologías
 
-- **.NET 8.0** - Framework principal
-- **ASP.NET Core** - Web API
-- **Swagger/OpenAPI** - Documentación de API
-- **CORS** - Configurado para Angular (puerto 4200)
+- **.NET 8.0** - Framework
+- **ASP.NET Core Web API** - API REST
+- **xUnit** - Testing unitario e integración
+- **Swagger/OpenAPI** - Documentación
+- **CORS** - Configurado para Angular
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 EverCodes.Backend.DynamicForm/
 ├── src/
 │   └── EverCodes.Backend.DynamicForm.Web.API/
 │       ├── DynamicForm/
-│       │   ├── Controllers/      # Controladores de la API
-│       │   ├── Dtos/             # Objetos de transferencia de datos
-│       │   └── MockData/         # Datos de prueba
-│       ├── Program.cs            # Punto de entrada de la aplicación
-│       └── *.csproj              # Archivo de proyecto
-└── EverCodes.Backend.DynamicForm.sln
+│       │   ├── Controllers/          # API Controllers
+│       │   ├── DTOs/                 # Data Transfer Objects (sin ciclos)
+│       │   ├── Entities/v2/          # Entidades del dominio
+│       │   ├── Mappers/              # Mapeo Entidades → DTOs
+│       │   └── MockData/             # Datos de prueba
+│       ├── Program.cs                # Configuración de la API
+│       └── Properties/
+│           └── launchSettings.json   # Perfiles de ejecución
+├── tests/
+│   └── EverCodes.Backend.DynamicForm.Tests/
+│       ├── IntegrationTests/         # Tests de API (WebApplicationFactory)
+│       ├── UnitTests/                # Tests unitarios
+│       └── TestData/                 # Datos reutilizables para tests
+└── .vscode/
+    ├── launch.json                   # Configuración debug VS Code
+    └── tasks.json                    # Tareas de build
 ```
 
-## 🛠️ Requisitos Previos
+## �️ Instalación
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Visual Studio Code (recomendado) o Visual Studio 2022
-
-## 📦 Instalación
-
-1. Clonar el repositorio:
 ```powershell
+# Clonar repositorio
 git clone https://github.com/Everlm/EverCodes.Backend.DynamicForm.git
 cd EverCodes.Backend.DynamicForm
-```
 
-2. Restaurar las dependencias:
-```powershell
+# Restaurar y compilar
 dotnet restore
-```
-
-3. Compilar el proyecto:
-```powershell
 dotnet build
 ```
 
-## ▶️ Ejecutar el Proyecto
+## ▶️ Ejecutar
 
-### Desde la terminal:
 ```powershell
-dotnet run --project src/EverCodes.Backend.DynamicForm.Web.API/EverCodes.Backend.DynamicForm.Web.API.csproj
+# Desde terminal
+dotnet run --project src/EverCodes.Backend.DynamicForm.Web.API
+
+# Desde VS Code
+# Presiona F5 (usa perfil "http" de launchSettings.json)
 ```
 
-### Desde VS Code:
-Presiona `F5` para ejecutar en modo debug.
+**URLs disponibles:**
 
-La API estará disponible en:
-- **HTTPS**: `https://localhost:5001`
-- **HTTP**: `http://localhost:5000`
-- **Swagger UI**: `https://localhost:5001/swagger`
+- HTTP: `http://localhost:5059`
+- Swagger: `http://localhost:5059/swagger`
 
-## 🔗 Endpoints Principales
+## 🔗 Endpoints
 
-### Obtener Definición de Formulario
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/dynamic-forms/sample` | Formulario con relaciones (IgnoreCycles) |
+| `GET` | `/api/dynamic-forms/sample-dto` | Formulario sin ciclos (DTOs) ⭐ |
+
+## 🧪 Testing
+
+```powershell
+# Ejecutar todos los tests
+dotnet test
+
+# Solo tests unitarios
+dotnet test --filter "FullyQualifiedName~UnitTests"
+
+# Solo tests de integración
+dotnet test --filter "FullyQualifiedName~IntegrationTests"
 ```
-GET /api/DynamicForm
-```
-Retorna la definición completa de un formulario dinámico con todos sus campos.
 
-## 🔧 Configuración de CORS
+**Cobertura de tests:**
 
-La API está configurada para aceptar peticiones desde:
-- `http://localhost:4200` (Angular Development)
-- `https://localhost:4200` (Angular Development SSL)
+- ✅ Relaciones entre entidades (Form → Fields → Props → Options)
+- ✅ Validaciones y estructura de datos
+- ✅ Tests de integración API (WebApplicationFactory)
+- ✅ Mappers y DTOs
 
-Para modificar los orígenes permitidos, edita el archivo `Program.cs`.
+## 🏗️ Arquitectura
+
+### Entidades Principales
+
+- **FormlyForm**: Contenedor del formulario
+- **FormlyFieldConfig**: Configuración de campos (con soporte para FieldGroups)
+- **FormlyFieldProp**: Propiedades del campo (tipo, label, validaciones)
+- **FormlyFieldOption**: Opciones para selects
+- **FormlyValidation**: Mensajes de validación
+
+### Estrategia de Serialización
+
+1. **Endpoint `/sample`**: Usa `ReferenceHandler.IgnoreCycles` (mantiene relaciones)
+2. **Endpoint `/sample-dto`**: Usa DTOs sin referencias circulares (recomendado para producción)
 
 ## 📝 Comandos Útiles
 
 ```powershell
-# Compilar
-dotnet build
-
-# Ejecutar
-dotnet run
-
-# Limpiar build
-dotnet clean
-
+dotnet build                  # Compilar
+dotnet run                    # Ejecutar API
+dotnet test                   # Ejecutar tests
+dotnet clean                  # Limpiar build
 ```
 
 ## 👤 Autor
 
-**Everlm**
-- GitHub: [@Everlm](https://github.com/Everlm)
+**Everlm** - [@Everlm](https://github.com/Everlm)
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+MIT License
