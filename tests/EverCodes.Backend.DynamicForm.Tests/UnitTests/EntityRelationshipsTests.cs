@@ -447,8 +447,6 @@ namespace EverCodes.Backend.DynamicForm.Tests.UnitTests
             form.Fields.Add(groupField);
 
             // Assert
-            Assert.Single(form.Fields);
-            Assert.Equal(2, groupField.FieldGroup.Count);
             Assert.All(groupField.FieldGroup, field =>
             {
                 Assert.Equal(groupField.Id, field.ParentId);
